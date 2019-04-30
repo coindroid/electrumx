@@ -2930,3 +2930,25 @@ class ECCoin(Coin):
         # you have to install scryp python module (pip install scrypt)
         import scrypt
         return scrypt.hash(header, header, 1024, 1, 1, 32)
+
+class Sucrecoin(Coin):
+    NAME = "Sucrecoin"
+    SHORTNAME = "Sucrecoin"
+    NET = "mainnet"
+    XPUB_VERBYTES = bytes.fromhex("022D2533")
+    XPRV_VERBYTES = bytes.fromhex("0221312B")
+    P2PKH_VERBYTE = bytes.fromhex("4b")
+    P2SH_VERBYTES = [bytes.fromhex("7a")]
+    WIF_BYTE = bytes.fromhex("80")
+    GENESIS_HASH = ("0000007f55c62957973356eb69c5d9d262c9fb826bcab6b8c892bf07f67cfb74")
+    
+    TX_COUNT = 3911020
+    TX_COUNT_HEIGHT = 602000
+    TX_PER_BLOCK = 4
+    REORG_LIMIT = 55
+    DESERIALIZER = lib_tx.DeserializerSegWit
+
+    @classmethod
+    def header_hash(cls, header):
+        import x16r_hash
+        return x16r_hash.getPoWHash(header)
